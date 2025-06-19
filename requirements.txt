@@ -7,7 +7,12 @@ paddleocr>=2.7.0    # SOTA OCR engine
 requests
 python-dotenv       # load HF_API_TOKEN
 
-# (Optional: for local testing without HF) 
-# transformers
-# sentencepiece
+paddlepaddle
+setuptools
 
+transformers
+sentencepiece
+
+requests
+
+torch
