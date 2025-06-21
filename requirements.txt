@@ -1,18 +1,12 @@
-# PDF parsing & OCR
-pymupdf             # for reading PDF text
-pillow              # image support
-paddleocr>=2.7.0    # SOTA OCR engine
-
-# HTTP & env helpers
+pymupdf             
+pillow              
+paddleocr>=2.7.0  
 requests
-python-dotenv       # load HF_API_TOKEN
-
+python-dotenv       
 paddlepaddle
 setuptools
-
 transformers
 sentencepiece
-
 requests
-
 torch
+groq
