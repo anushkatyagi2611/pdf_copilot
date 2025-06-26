@@ -1,6 +1,5 @@
 pymupdf             
 pillow              
-paddleocr>=2.7.0  
 requests
 python-dotenv       
 paddlepaddle
@@ -10,3 +9,4 @@ sentencepiece
 requests
 torch
 groq
+easyocr
