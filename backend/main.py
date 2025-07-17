@@ -329,7 +329,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-client = Groq(api_key="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")
+# client = Groq(api_key="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")
 reader = easyocr.Reader(['en'])
 
 # Store uploaded PDFs in temp dir (in-memory or disk)
