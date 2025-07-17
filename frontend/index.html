@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>PDF Copilot</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="left-panel">
+      <input type="file" id="pdf-upload" accept="application/pdf" />
+      <canvas id="pdf-viewer"></canvas>
+      <div id="page-num">Page: 1</div>
+    </div>
+    <div class="right-panel">
+      <div id="chat-box"></div>
+      <textarea id="question-input" placeholder="Ask something about this page..."></textarea>
+      <button id="ask-btn">Ask</button>
+    </div>
+  </div>
+
+  <!-- PDF.js and your app logic -->
+  <script src="pdf.js"></script>
+  <script>
+    const pdfjsLib = window['pdfjs-dist/build/pdf'];
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'pdf.worker.js';
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>
