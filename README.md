@@ -97,7 +97,7 @@ Smart document chunking and embedding ensure that answers are generated based on
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-username/pdf-copilot.git
+git clone https://github.com/anushkatyagi2611/pdf_copilot.git
 cd pdf-copilot
 ```
 
@@ -141,7 +141,7 @@ pdf-copilot/
 
 ## 📈 Roadmap
 
-* [x] Page-aware Q\&A for digital and scanned PDFs
+* [ ] Page-aware Q\&A for digital and scanned PDFs
 * [ ] Support for multi-page context across scrolling
 * [ ] Show source snippets alongside answers
 * [ ] File-specific chat history
