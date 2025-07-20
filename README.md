@@ -121,21 +121,23 @@ Make sure it’s allowed to talk to your backend (`http://localhost:8000`).
 ---
 
 ## 🛠️ Folder Structure
-
-```bash
-pdf-copilot/
+.
+├── backend/                # FastAPI backend for file handling, page-wise extraction, and LLM-based Q&A
+│   ├── main.py             # Core backend logic (upload, OCR, RAG, Groq API integration)
+│   └── requirements.txt    # Python dependencies
 │
-├── main.py                  # FastAPI app
-├── pdf_utils.py             # PDF text + OCR extraction
-├── embedding_utils.py       # SentenceTransformer-based embedding + chunking
-├── qa_engine.py             # Retrieval + Groq LLM query
-├── static/
-│   ├── frontend/            # PDF.js based UI
-│   ├── style.css            # Custom modern styling
-├── data/
-│   └── uploads/             # Stored PDFs
-│   └── chunks/              # Cached embeddings/chunks
-```
+├── frontend/               # Lightweight frontend powered by PDF.js and vanilla JS
+│   ├── index.html          # Web UI structure
+│   ├── app.js              # Handles page detection and communication with backend
+│   ├── pdf.js              # PDF.js viewer engine
+│   ├── pdf.worker.js       # PDF.js worker
+│   └── style.css           # Aesthetic styling (Inter font, modern layout)
+│
+├── venv/                   # Virtual environment (not pushed to GitHub)
+├── .env                    # API keys and secrets (excluded via .gitignore)
+├── .gitattributes          # Git configuration
+└── README.md               # You’re here!
+
 
 ---
 
