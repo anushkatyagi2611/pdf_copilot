@@ -1,4 +1,3 @@
-# pdf_copilot
 
 # 📚 PDF Copilot – Your Page-Aware PDF Assistant
 
