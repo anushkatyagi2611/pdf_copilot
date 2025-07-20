@@ -76,19 +76,23 @@ Smart document chunking and embedding ensure that answers are generated based on
 
 ---
 
-## 🧪 Example Use Cases
+### 🧪 Example Usage
 
-* 🔬 **Research Reading**:
-  “Summarize the experiment on this page.”
+* 💬 **General Questions**:  
+  “What is being discussed on this page?”
 
-* 📚 **Study Help**:
-  “Explain the derivation here in simpler terms.”
+* 📚 **Lecture Slides**:  
+  “Summarize the bullet points shown here.”
 
-* 🧾 **Invoice Audits**:
-  “What is the total amount mentioned on this page?”
+* 🧾 **Financial Reports**:  
+  “Is there any loss or profit reported on this page?”
 
-* ✍️ **Handwritten Note Parsing**:
-  “What’s the name written in cursive here?”
+* 🌐 **Research Papers**:  
+  “What is the key conclusion of this experiment?”
+
+* 📖 **Textbooks**:  
+  “Explain this derivation in simpler terms.”
+
 
 ---
 
