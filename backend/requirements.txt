@@ -6,3 +6,4 @@ easyocr
 numpy
 groq
 python-multipart
+sentence-transformers
