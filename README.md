@@ -121,7 +121,7 @@ Make sure it’s allowed to talk to your backend (`http://localhost:8000`).
 ---
 
 ## 🛠️ Folder Structure
-.
+```
 ├── backend/                # FastAPI backend for file handling, page-wise extraction, and LLM-based Q&A
 │   ├── main.py             # Core backend logic (upload, OCR, RAG, Groq API integration)
 │   └── requirements.txt    # Python dependencies
