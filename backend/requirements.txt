@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pymupdf
+Pillow
+easyocr
+numpy
+groq
+python-multipart
+sentence-transformers
