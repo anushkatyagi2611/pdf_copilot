@@ -141,17 +141,6 @@ Make sure it’s allowed to talk to your backend (`http://localhost:8000`).
 ```
 ---
 
-## 📈 Roadmap
-
-* [ ] Page-aware Q\&A for digital and scanned PDFs
-* [ ] Support for multi-page context across scrolling
-* [ ] Show source snippets alongside answers
-* [ ] File-specific chat history
-* [ ] Summary generation for entire PDFs
-* [ ] Support for audio playback of answers
-* [ ] PDF export of Q\&A dialogue
-
----
 
 ## 🧑‍💻 Contributing
 
