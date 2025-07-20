@@ -102,7 +102,7 @@ Smart document chunking and embedding ensure that answers are generated based on
 
 ```bash
 git clone https://github.com/anushkatyagi2611/pdf_copilot.git
-cd pdf-copilot
+cd backend
 ```
 
 ### 2. Install dependencies
