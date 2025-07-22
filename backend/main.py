@@ -123,11 +123,11 @@ async def ask_question(
     Context:{chr(10).join(retrieved_chunks)}
 
     User's question:{question}
-
-    Answer the question using the given text only if the answer is clearly present.
-    If not, use your own knowledge to answer it briefly and accurately.
-    Do not write any other thing except the answer like: "According to the given content" or "The text is not mentioned".
-    In every answer try enhancing or simplifying the answer using your own knowledge."""
+    
+    Read the question carefully and answer using the given text.
+    If answer not clearly present, use your own knowledge to answer it briefly and accurately.
+    In every answer enhance and simplify the answer using your own knowledge.
+    Do not write any other thing except the answer like: "According to the given content" or "The text is not mentioned"."""
 
     result = groq_chat_completion(prompt)
     return {"answer": result}

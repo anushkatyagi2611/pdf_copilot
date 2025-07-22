@@ -1,30 +1,199 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8" />
-  <title>PDF Copilot</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<title>PDF Copilot</title>
+<link rel="stylesheet" href="style.css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
-    <div class="left-panel">
-      <input type="file" id="pdf-upload" accept="application/pdf" />
-      <canvas id="pdf-viewer"></canvas>
-      <div id="page-num">Page: 1</div>
-    </div>
-    <div class="right-panel">
-      <div id="chat-box"></div>
-      <textarea id="question-input" placeholder="Ask something about this page..."></textarea>
-      <button id="ask-btn">Ask</button>
-    </div>
-  </div>
+<div class="container">
+<div class="left-panel">
+<div class="pdf-header">
+<div class="pdf-title">
+<div class="pdf-icon">📃</div>
+PDF Viewer
+</div>
+<div class="pdf-controls">
+<button class="control-btn theme-toggle" id="theme-toggle" title="Toggle theme">
+<i class="fas fa-moon" id="theme-icon"></i>
+</button>
+<label for="pdf-file-input" class="file-input-label">
+<i class="fas fa-upload"></i>
+Upload PDF
+</label>
+<input type="file" id="pdf-file-input" accept="application/pdf" />
+<button class="control-btn" id="zoom-out">
+<i class="fas fa-search-minus"></i>
+Zoom Out
+</button>
+<button class="control-btn" id="zoom-in">
+<i class="fas fa-search-plus"></i>
+Zoom In
+</button>
+</div>
+</div>
+<div id="pdf-viewer">
+<div class="pdf-placeholder">
+<i class="fas fa-file-pdf" style="font-size: 4rem; opacity: 0.3; margin-bottom: 1rem;"></i>
+<p>Upload a PDF to get started</p>
+<p style="font-size: 0.9rem; margin-top: 0.5rem;">Drag and drop or click upload</p>
+</div>
+</div>
+<div class="page-nav" id="page-navigation">
+<button id="prev-page">
+<i class="fas fa-chevron-left"></i>
+Previous
+</button>
+<span class="page-info" id="page-info">Page 1 of 1</span>
+<button id="next-page">
+Next
+<i class="fas fa-chevron-right"></i>
+</button>
+</div>
+</div>
+<div class="right-panel">
+<div class="chat-header">
+<div class="chat-icon">🤖</div>
+<div class="chat-title">AI Assistant</div>
+<div class="status-indicator" id="connection-status">
+<i class="fas fa-circle"></i>
+Ready
+</div>
+</div>
+<div id="chat-box">
+<div class="welcome-message">
+<div class="ai-avatar">
+<i class="fas fa-robot"></i>
+</div>
+<div class="message-content">
+<p>👋 Hi! I'm your PDF assistant. Upload a PDF and I'll help you understand its content, answer questions, and provide insights.</p>
+<div class="suggested-questions" id="suggested-questions">
+<p class="suggestions-title">Try asking:</p>
+<button class="suggestion-btn">"What's the main topic?"</button>
+<button class="suggestion-btn">"Summarize this page"</button>
+<button class="suggestion-btn">"Key points from this section"</button>
+</div>
+</div>
+</div>
+</div>
+<div class="typing-indicator" id="typing-indicator">
+<div class="typing-avatar">
+<i class="fas fa-robot"></i>
+</div>
+<div class="typing-dots">
+<div class="typing-dot"></div>
+<div class="typing-dot"></div>
+<div class="typing-dot"></div>
+</div>
+</div>
+<div class="input-container">
+<div class="input-wrapper">
+<textarea id="question-input" placeholder="Ask me anything about this PDF..." rows="1"></textarea>
+<div class="input-actions">
+<button class="attachment-btn" id="clear-chat">
+<i class="fas fa-trash"></i>
+Clear Chat
+</button>
+<button class="attachment-btn" id="export-chat">
+<i class="fas fa-download"></i>
+Export
+</button>
+</div>
+</div>
+<button id="ask-btn">
+<i class="fas fa-paper-plane"></i>
+</button>
+</div>
+</div>
+</div>
+<!-- PDF.js and your app logic -->
+<script src="pdf.js"></script>
+<script>
+const pdfjsLib = window['pdfjs-dist/build/pdf'];
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'pdf.worker.js';
+</script>
+<script src="app.js"></script>
 
-  <!-- PDF.js and your app logic -->
-  <script src="pdf.js"></script>
-  <script>
-    const pdfjsLib = window['pdfjs-dist/build/pdf'];
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'pdf.worker.js';
-  </script>
-  <script src="app.js"></script>
+<!-- Theme Switcher Script -->
+<script>
+// Theme management
+class ThemeManager {
+    constructor() {
+        this.currentTheme = this.getInitialTheme();
+        this.init();
+    }
+
+    getInitialTheme() {
+        // Check localStorage first
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            return savedTheme;
+        }
+        
+        // Check system preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            return 'dark';
+        }
+        
+        return 'light';
+    }
+
+    init() {
+        this.applyTheme(this.currentTheme);
+        this.setupToggle();
+        this.watchSystemTheme();
+        this.updateIcon();
+    }
+
+    applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        this.currentTheme = theme;
+        localStorage.setItem('theme', theme);
+        this.updateIcon();
+    }
+
+    updateIcon() {
+        const themeIcon = document.getElementById('theme-icon');
+        if (themeIcon) {
+            if (this.currentTheme === 'dark') {
+                themeIcon.className = 'fas fa-sun';
+            } else {
+                themeIcon.className = 'fas fa-moon';
+            }
+        }
+    }
+
+    toggle() {
+        const newTheme = this.currentTheme === 'light' ? 'dark' : 'light';
+        this.applyTheme(newTheme);
+    }
+
+    setupToggle() {
+        const toggleBtn = document.getElementById('theme-toggle');
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => this.toggle());
+        }
+    }
+
+    watchSystemTheme() {
+        if (window.matchMedia) {
+            const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+            mediaQuery.addEventListener('change', (e) => {
+                // Only auto-switch if user hasn't manually set a preference
+                const savedTheme = localStorage.getItem('theme');
+                if (!savedTheme) {
+                    this.applyTheme(e.matches ? 'dark' : 'light');
+                }
+            });
+        }
+    }
+}
+
+// Initialize theme manager when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new ThemeManager();
+});
+</script>
 </body>
 </html>
