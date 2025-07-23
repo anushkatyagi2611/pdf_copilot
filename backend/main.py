@@ -28,18 +28,6 @@ embedder = SentenceTransformer('all-MiniLM-L6-v2')
 
 pdf_store = {}
 
-# @app.post("/upload_pdf/")
-# async def upload_pdf(file: UploadFile = File(...)):
-#     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
-#         shutil.copyfileobj(file.file, tmp)
-#         tmp_path = tmp.name
-
-#     pdf_id = os.path.basename(tmp_path)
-#     pdf_store[pdf_id] = tmp_path
-#     return {"pdf_id": pdf_id}
-
-# pdf_store = {}
-
 @app.post("/upload_pdf/")
 async def upload_pdf(file: UploadFile = File(...)):
     # Save PDF to a temporary location
@@ -50,24 +38,6 @@ async def upload_pdf(file: UploadFile = File(...)):
     pdf_id = os.path.basename(tmp_path)
     pdf_store[pdf_id] = tmp_path
     return {"pdf_id": pdf_id}
-
-# @app.get("/get_pdf/")
-# def get_pdf(pdf_id: str = Query(...)):
-#     path = pdf_store.get(pdf_id)
-#     if not path or not os.path.exists(path):
-#         return {"error": "PDF not found"}
-#     return FileResponse(path, media_type='application/pdf', filename=pdf_id)
-
-# @app.get("/view_pdf/")
-# def view_pdf(pdf_id: str = Query(...)):
-#     # Just a helper endpoint to preview the PDF in the browser
-#     return HTMLResponse(f"""
-#         <html>
-#         <body style='margin:0;padding:0'>
-#             <embed src="/get_pdf/?pdf_id={pdf_id}" type="application/pdf" width="100%" height="100%" />
-#         </body>
-#         </html>
-#     """)
 
 @app.get("/get_page_text/")
 def get_page_text(pdf_id: str = Query(...), page_num: int = Query(...)):
@@ -132,7 +102,7 @@ async def ask_question(
     result = groq_chat_completion(prompt)
     return {"answer": result}
 
-# ---------- Helper Functions ----------
+# Helper Functions
 
 def extract_text_and_images(pdf_path, page_num):
     doc = fitz.open(pdf_path)
